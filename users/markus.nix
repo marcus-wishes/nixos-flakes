@@ -1,4 +1,4 @@
-{ pkgs, home-manager, ...}:
+{ pkgs, ...}:
 let 
   my-python-packages = ps: with ps; [
     pandas
@@ -10,9 +10,6 @@ let
   });
 in
 {
-  # Let home Manager install and manage itself.
-  programs.home-manager.enable = true;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.markus = {
     isNormalUser = true;
@@ -51,18 +48,8 @@ in
       inkscape
       pinta
       gnome.gnome-tweaks
+      #tex
+      #tikzit
     ];
-  };
-
-  home-manager = {
-    useUserPackages = true;
-    users.markus = { pkgs, ... } : {
-      home.stateVersion = "22.11";
-      home.homeDirectory = "/home/markus";
-      home.packages = with pkgs; [
-        tex
-        tikzit
-      ];
-    };
   };
 }

@@ -27,7 +27,8 @@
   # The `@` syntax here is used to alias the attribute set of the inputs's parameter, making it convenient to use inside the function.
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {
 
-    nixpkgs.config.allowUnfree = true;
+    # Let home Manager install and manage itself.
+    programs.home-manager.enable = true;
 
     # `nixosConfigurations` is a special attribute set, which is used to define NixOS configurations.
     nixosConfigurations = {
@@ -67,6 +68,18 @@
           # Note: /etc/nixos/configuration.nix itself is also a Nix Module, so you can import it directly here
           ./basics.nix
           ./fonts.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.markus = {
+              imports = [
+                ./users/markus.nix
+              ];
+            };
+            # Optionally, use home-manager.extraSpecialArgs to pass
+            # arguments to home.nix
+          }
 
           # create the default user + programs
           ./users/markus.nix
