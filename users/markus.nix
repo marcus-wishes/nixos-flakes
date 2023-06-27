@@ -48,8 +48,8 @@ in
       inkscape
       pinta
       gnome.gnome-tweaks
-      #tex
-      #tikzit
+      tex
+      tikzit
     ];
   };
 }

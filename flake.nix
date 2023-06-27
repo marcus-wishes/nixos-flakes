@@ -68,21 +68,22 @@
           # Note: /etc/nixos/configuration.nix itself is also a Nix Module, so you can import it directly here
           ./basics.nix
           ./fonts.nix
+           # create the default user + programs
+          ./users/markus.nix
+
+          # home-manager, used for managing user configuration
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.markus = {
               imports = [
-                ./users/markus.nix
+                ./users/markus-home.nix
               ];
             };
             # Optionally, use home-manager.extraSpecialArgs to pass
             # arguments to home.nix
           }
-
-          # create the default user + programs
-          ./users/markus.nix
 
           # specialized configuration for my laptop
           ./markusnix/markusnix-configuration.nix
