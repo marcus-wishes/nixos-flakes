@@ -11,13 +11,13 @@
     # Official NixOS package source, using nixos-unstable branch here
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # home-manager, used for managing user configuration
-    #home-manager = {
-    #  url = "github:nix-community/home-manager/release-23.05";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-23.05";
       # The `follows` keyword in inputs is used for inheritance.
       # Here, `inputs.nixpkgs` of home-manager is kept consistent with the `inputs.nixpkgs` of the current flake,
       # to avoid problems caused by different versions of nixpkgs.
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   # `outputs` are all the build result of the flake.
@@ -25,7 +25,7 @@
   # parameters in `outputs` are defined in `inputs` and can be referenced by their names.
   # However, `self` is an exception, This special parameter points to the `outputs` itself (self-reference)
   # The `@` syntax here is used to alias the attribute set of the inputs's parameter, making it convenient to use inside the function.
-  outputs = { self, nixpkgs, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
 
     nixpkgs.config.allowUnfree = true;
 
@@ -64,6 +64,8 @@
         modules = [
           # Import the configuration.nix we used before, so that the old configuration file can still take effect.
           # Note: /etc/nixos/configuration.nix itself is also a Nix Module, so you can import it directly here
+
+          ./basics.nix
           
           ./fonts.nix
 

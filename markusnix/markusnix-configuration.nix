@@ -15,21 +15,20 @@ let
     export __VK_LAYER_NV_optimus=NVIDIA_only
     exec "$@"
   '';
-  tex = (pkgs.texlive.combine {
+  /*tex = (pkgs.texlive.combine {
     inherit (pkgs.texlive) scheme-full
       latexmk;
   });
   my-python-packages = ps: with ps; [
     pandas
     pygments
-  ];
+  ];*/
 in
 {
   imports =
     [ # Include the results of the hardware scan.
       #./hardware-configuration.nix
       ./hardware-configuration.nix
-      <home-manager/nixos>
     ];
 
   # enabled Flakes and the new command line tool
@@ -173,7 +172,7 @@ in
   };
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  /*services.printing.enable = true;
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
@@ -201,7 +200,7 @@ in
   };
 
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfree = true;*/
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -248,7 +247,7 @@ in
     enable = true;
   };
 
-  fonts.fonts = with pkgs; [
+  /*fonts.fonts = with pkgs; [
     noto-fonts
     noto-fonts-cjk
     noto-fonts-emoji
@@ -258,7 +257,7 @@ in
     jetbrains-mono
     siji
     (nerdfonts.override { fonts = [ "Iosevka" "DroidSansMono" "Hack" ]; })
-  ];
+  ];*/
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -307,18 +306,4 @@ in
 
     ];
   };
-
-  home-manager = {
-    useUserPackages = true;
-    users.markus = { pkgs, ... } : {
-      home.stateVersion = "22.11";
-      home.homeDirectory = "/home/markus";
-      home.packages = with pkgs; [
-        tex
-        inkscape
-        tikzit
-      ];
-    };
-  };
-
 }
