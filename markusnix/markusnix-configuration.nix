@@ -28,7 +28,7 @@ in
   imports =
     [ # Include the results of the hardware scan.
       #./hardware-configuration.nix
-      /etc/nixos/hardware-configuration.nix
+      ./hardware-configuration.nix
       <home-manager/nixos>
     ];
 
@@ -200,46 +200,6 @@ in
     #media-session.enable = true;
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.markus = {
-    isNormalUser = true;
-    description = "Markus";
-    extraGroups = [ "networkmanager" "wheel" "audio" "docker" ];
-    packages = with pkgs; [
-      neovim
-      firefox
-      brave
-      vscode
-      vlc
-      keepassxc
-      github-desktop
-      signal-desktop
-      jetbrains.idea-ultimate
-      gradle
-      kotlin
-      docker-compose
-      #nodejs-slim-14_x
-      nodejs
-      chezmoi
-      libsForQt5.yakuake
-      (python3.withPackages my-python-packages)
-      slack
-      postman
-      pinentry
-      yubico-pam
-      appimage-run
-      kate
-      gcc
-      git-lfs
-      nodePackages.npm
-      pass
-      pinentry-curses
-      entr
-      pcmanfm
-      gnome.gnome-tweaks
-    ];
-  };
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -280,7 +240,7 @@ in
     package = pkgs.jdk11;
   };
 
-  programs.git = {
+  programs.gitFull = {
     enable = true;
   };
 

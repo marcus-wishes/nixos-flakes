@@ -7,9 +7,9 @@ let
 in
 {
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.markusNew = {
+  users.users.markus = {
     isNormalUser = true;
-    description = "Markus 2";
+    description = "Markus";
     createHome = true;
     extraGroups = [ "networkmanager" "wheel" "audio" "docker" ];
     packages = with pkgs; [
@@ -41,6 +41,7 @@ in
       pass
       pinentry-curses
       entr
+      pinta
       gnome.gnome-tweaks
     ];
   };
