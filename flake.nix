@@ -65,9 +65,7 @@
         modules = [
           # Import the configuration.nix we used before, so that the old configuration file can still take effect.
           # Note: /etc/nixos/configuration.nix itself is also a Nix Module, so you can import it directly here
-
           ./basics.nix
-          
           ./fonts.nix
 
           # create the default user + programs
