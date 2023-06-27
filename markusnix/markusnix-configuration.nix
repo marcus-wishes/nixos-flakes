@@ -240,7 +240,7 @@ in
     package = pkgs.jdk11;
   };
 
-  programs.gitFull = {
+  programs.git = {
     enable = true;
   };
 
