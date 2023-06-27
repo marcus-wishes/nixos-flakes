@@ -61,7 +61,7 @@
         # Only these parameters can be passed by default.
         # If you need to pass other parameters, you must use `specialArgs` by uncomment the following line
         # with inputs we can use all the parameters of the flake as arguments of the module
-        specialArgs = { inherit inputs; };
+        specialArgs = inputs;
         modules = [
           # Import the configuration.nix we used before, so that the old configuration file can still take effect.
           # Note: /etc/nixos/configuration.nix itself is also a Nix Module, so you can import it directly here
