@@ -49,7 +49,7 @@ in
       pinta
       gnome.gnome-tweaks
       gnome.gnome-shell-extensions
-      gnome.gnomeExtensions.timepp
+      gnomeExtensions.timepp
       tex
       tikzit
     ];
