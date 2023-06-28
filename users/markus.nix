@@ -48,6 +48,8 @@ in
       inkscape
       pinta
       gnome.gnome-tweaks
+      gnome.gnome-shell-extensions
+      gnome.gnomeExtensions.timepp
       tex
       tikzit
     ];
