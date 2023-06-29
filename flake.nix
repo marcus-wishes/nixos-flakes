@@ -69,9 +69,11 @@
           ./basics.nix
           ./fonts.nix
 
-          ./opt/i3.nix
           ./opt/kde.nix
 
+          # Import the i3 configuration
+          ./opt/i3.nix
+          
            # create the default user + programs
           ./users/markus.nix
 
