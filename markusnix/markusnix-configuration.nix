@@ -223,6 +223,8 @@ in
     rxvt-unicode
     nix-index
     gnumake
+    popcorntime
+    minecraft
     #nix-alien-pkgs.nix-alien
   ];
 
