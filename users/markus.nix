@@ -47,9 +47,9 @@ in
       entr
       inkscape
       pinta
-      gnome.gnome-tweaks
-      gnome.gnome-shell-extensions
-      gnomeExtensions.timepp
+      #gnome.gnome-tweaks
+      #gnome.gnome-shell-extensions
+      #gnomeExtensions.timepp
       tex
       tikzit
     ];
