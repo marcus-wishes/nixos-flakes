@@ -6,7 +6,4 @@
 
   # GTK Themes not applied in Wayland fix:
   programs.dconf.enable = true;
-
-  # default to Wayland
-  services.xserver.displayManager.defaultSession = "plasmawayland";
 }
