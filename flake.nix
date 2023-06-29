@@ -68,6 +68,10 @@
           # Note: /etc/nixos/configuration.nix itself is also a Nix Module, so you can import it directly here
           ./basics.nix
           ./fonts.nix
+
+          ./opt/i3.nix
+          ./opt/kde.nix
+
            # create the default user + programs
           ./users/markus.nix
 
