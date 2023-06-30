@@ -168,6 +168,9 @@ in
     popcorntime
     prismlauncher
     #nix-alien-pkgs.nix-alien
+
+    #additional kde stuff
+    libsForQt5.kcalc
   ];
 
   virtualisation.docker = {
