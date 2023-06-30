@@ -47,12 +47,16 @@ in
       entr
       inkscape
       pinta
-      jdk8
       #gnome.gnome-tweaks
       #gnome.gnome-shell-extensions
       #gnomeExtensions.timepp
       tex
       tikzit
+
+      google-chrome
+
+      #additional kde stuff
+      libsForQt5.kcalc
     ];
   };
 }

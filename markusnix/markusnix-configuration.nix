@@ -166,11 +166,10 @@ in
     nix-index
     gnumake
     popcorntime
-    prismlauncher
-    #nix-alien-pkgs.nix-alien
 
-    #additional kde stuff
-    libsForQt5.kcalc
+    # minecraft
+    #prismlauncher
+    #nix-alien-pkgs.nix-alien
   ];
 
   virtualisation.docker = {
@@ -180,7 +179,7 @@ in
   
   programs.java = {
     enable = true;
-    package = pkgs.jdk;
+    package = pkgs.jdk8;
   };
 
   programs.git = {
