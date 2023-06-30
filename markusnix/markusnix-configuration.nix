@@ -224,7 +224,7 @@ in
     nix-index
     gnumake
     popcorntime
-    minecraft
+    prismlauncher
     #nix-alien-pkgs.nix-alien
   ];
 
