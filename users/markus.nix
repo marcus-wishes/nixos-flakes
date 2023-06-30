@@ -47,6 +47,7 @@ in
       entr
       inkscape
       pinta
+      jdk8
       #gnome.gnome-tweaks
       #gnome.gnome-shell-extensions
       #gnomeExtensions.timepp

@@ -95,33 +95,6 @@ in
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the KDE Plasma Desktop Environment.
-  #services.xserver.displayManager.sddm.enable = true;
-  #services.xserver.desktopManager.plasma5.enable = false;
-
-  # gnome
-  #services.xserver.displayManager.gdm.enable = true;
-  #services.xserver.desktopManager.gnome.enable = true;
-
-  # i3
-  /*services.xserver.windowManager.i3 = {
-    enable = true;
-    extraPackages = with pkgs; [
-      rofi
-      polybar
-      dunst
-      pavucontrol
-      i3status #default i3 status bar
-      i3lock #default i3 screen locker
-      networkmanagerapplet
-      feh
-      xfce.thunar
-      xfce.thunar-volman
-      xfce.thunar-archive-plugin
-      xfce.thunar-media-tags-plugin
-    ];
-  };*/
-
   #yubikey und gpg
   programs.gnupg.agent = {
     enable = true;
@@ -168,37 +141,6 @@ in
     };
   };
 
-  # Enable CUPS to print documents.
-  /*services.printing.enable = true;
-
-  # Enable bluetooth
-  hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
-
-  # Enable sound with pipewire.
-  sound.enable = true;
-  sound.mediaKeys = {
-    enable = true;
-    volumeStep = "5%";
-  };
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
-  };
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;*/
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -235,7 +177,7 @@ in
   
   programs.java = {
     enable = true;
-    package = pkgs.jdk11;
+    package = pkgs.jdk;
   };
 
   programs.git = {
