@@ -54,6 +54,7 @@ in
       tikzit
 
       google-chrome
+      microsoft-edge-beta
 
       #additional kde stuff
       libsForQt5.kcalc
