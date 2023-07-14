@@ -29,7 +29,6 @@ in
       gradle
       kotlin
       docker-compose
-      #nodejs-slim-14_x
       nodejs
       chezmoi
       (python3.withPackages my-python-packages)
