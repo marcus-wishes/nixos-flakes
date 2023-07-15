@@ -57,6 +57,8 @@ in
 
       #additional kde stuff
       libsForQt5.kcalc
+
+      sqlitebrowser
     ];
   };
 }
