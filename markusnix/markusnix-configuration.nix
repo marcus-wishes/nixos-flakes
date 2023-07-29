@@ -162,6 +162,7 @@ in
     bat
     tmux
     killall
+    fd
     rxvt-unicode
     nix-index
     gnumake

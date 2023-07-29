@@ -51,6 +51,7 @@ in
       #gnomeExtensions.timepp
       tex
       tikzit
+      go
 
       google-chrome
       microsoft-edge-beta
