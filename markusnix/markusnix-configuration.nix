@@ -47,7 +47,7 @@ in
 
   # Todo remove again if possibe, but i dont know what depends on it
   nixpkgs.config.permittedInsecurePackages = [
-    "openssl-1.1.1u"
+    "openssl-1.1.1v"
   ];
 
   # enable thermal management

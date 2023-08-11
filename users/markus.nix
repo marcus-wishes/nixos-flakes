@@ -52,6 +52,7 @@ in
       tex
       tikzit
       go
+      tortoisehg
 
       google-chrome
       microsoft-edge-beta
