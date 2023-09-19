@@ -18,6 +18,7 @@ in
     extraGroups = [ "networkmanager" "wheel" "audio" "docker" ];
     packages = with pkgs; [
       neovim
+      lm_sensors
       firefox
       brave
       vscode
@@ -51,16 +52,25 @@ in
       #gnomeExtensions.timepp
       tex
       tikzit
-      go
+      #go
       tortoisehg
 
       google-chrome
       microsoft-edge-beta
+      vivaldi
+      bun
 
       #additional kde stuff
       libsForQt5.kcalc
 
       sqlitebrowser
+    ];
+  };
+
+  environment.sessionVariables = rec{
+    GOROOT = "$HOME/go/go";
+    PATH = [
+      "$HOME/go/go/bin"
     ];
   };
 }

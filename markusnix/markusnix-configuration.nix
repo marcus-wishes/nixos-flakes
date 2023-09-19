@@ -123,15 +123,22 @@ in
   
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.opengl.enable = true;
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.latest;
-  hardware.nvidia.modesetting.enable = true;
-  hardware.nvidia.prime = {
-    #sync.enable = true; # always only run on nvidia
-    offload.enable = true;
-    intelBusId = "PCI:0:2:0";
-    nvidiaBusId = "PCI:1:0:0";
-  };
 
+  hardware.nvidia = {
+    open = lib.mkDefault false;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
+    nvidiaPersistenced = lib.mkDefault true;
+    modesetting.enable = lib.mkDefault true;
+    powerManagement.enable = lib.mkDefault true;
+    dynamicBoost.enable = lib.mkDefault true;
+    prime = {
+      offload.enable = true;
+      #sync.enable = lib.mkDefault true; # always only run on nvidia
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
+  };
   # booting with external display:
   specialisation = {
     external-display.configuration = {
