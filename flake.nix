@@ -18,6 +18,12 @@
       # to avoid problems caused by different versions of nixpkgs.
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      # to avoid problems caused by different versions of nixpkgs.
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   # `outputs` are all the build result of the flake.
@@ -25,7 +31,7 @@
   # parameters in `outputs` are defined in `inputs` and can be referenced by their names.
   # However, `self` is an exception, This special parameter points to the `outputs` itself (self-reference)
   # The `@` syntax here is used to alias the attribute set of the inputs's parameter, making it convenient to use inside the function.
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, sops-nix, ... }@inputs: {
 
     # Let home Manager install and manage itself.
     programs.home-manager.enable = true;
@@ -68,7 +74,7 @@
           # Note: /etc/nixos/configuration.nix itself is also a Nix Module, so you can import it directly here
           ./basics.nix
           ./fonts.nix
-
+          
           ./opt/kde.nix
 
           # Import the i3 configuration
@@ -76,6 +82,22 @@
           
            # create the default user + programs
           ./users/markus.nix
+
+          # add the sops-nix module to make secrets available in /run/secrets
+          sops-nix.nixosModules.sops
+          {
+            sops.defaultSopsFile = "/home/markus/nix-flakes/secrets/secrets.yaml"; # the default file to look for secrets
+            sops.age.keyFile = "/home/markus/.config/sops/age/keys.txt"; # age key pair
+            sops.validateSopsFiles = false; # else it complains that the secret files are not in the nix store
+            sops.secrets.forge_api_token = {
+              owner = "markus";
+              mode = "0400";
+            };
+             sops.secrets.forge_email = {
+              owner = "markus";
+              mode = "0400";
+            };
+          }
 
           # home-manager, used for managing user configuration
           home-manager.nixosModules.home-manager

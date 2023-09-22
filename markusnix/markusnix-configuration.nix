@@ -173,11 +173,8 @@ in
     rxvt-unicode
     nix-index
     gnumake
-    popcorntime
-
-    # minecraft
-    #prismlauncher
-    #nix-alien-pkgs.nix-alien
+    age
+    sops
   ];
 
   virtualisation.docker = {

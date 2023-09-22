@@ -1,4 +1,4 @@
-{ pkgs, ...}:
+{ pkgs, config, ...}:
 let 
   my-python-packages = ps: with ps; [
     pandas
@@ -15,7 +15,7 @@ in
     isNormalUser = true;
     description = "Markus";
     createHome = true;
-    extraGroups = [ "networkmanager" "wheel" "audio" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "audio" "docker" "keys" config.users.groups.keys.name ];
     packages = with pkgs; [
       neovim
       lm_sensors
@@ -54,6 +54,8 @@ in
       tikzit
       #go
       tortoisehg
+      libsecret
+      popcorntime
 
       google-chrome
       microsoft-edge-beta
@@ -71,6 +73,9 @@ in
     GOROOT = "$HOME/go/go";
     PATH = [
       "$HOME/go/go/bin"
+      "$HOME/.npm-global/bin"
     ];
+    FORGE_EMAIL = "$(cat /run/secrets/forge_email)";
+    FORGE_API_TOKEN = "$(cat /run/secrets/forge_api_token)";
   };
 }
