@@ -180,11 +180,15 @@ in
   virtualisation.docker = {
     enable = true;
     storageDriver = "btrfs";
+    #rootless = {
+    #  enable = true;
+    #setSocketVariable = true;
+    #};
   };
   
   programs.java = {
     enable = true;
-    package = pkgs.jdk8;
+    package = pkgs.jdk11;
   };
 
   programs.git = {

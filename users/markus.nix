@@ -34,7 +34,6 @@ in
       chezmoi
       (python3.withPackages my-python-packages)
       slack
-      postman
       pinentry
       yubico-pam
       appimage-run
