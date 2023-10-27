@@ -122,19 +122,25 @@ in
   };
   
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.opengl.enable = true;
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
 
   hardware.nvidia = {
-    open = lib.mkDefault false;
+    #open = lib.mkDefault false;
+    open = true;
     nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
     nvidiaPersistenced = lib.mkDefault true;
     modesetting.enable = lib.mkDefault true;
+    powerManagement.finegrained = false;
     powerManagement.enable = lib.mkDefault true;
     dynamicBoost.enable = lib.mkDefault true;
     prime = {
-      offload.enable = true;
-      #sync.enable = lib.mkDefault true; # always only run on nvidia
+      #offload.enable = true; # use only intel gpu by default and use nvidia only when needed using nvidia-offload
+      sync.enable = lib.mkDefault true; # always only run on nvidia
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:1:0:0";
     };
