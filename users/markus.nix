@@ -25,7 +25,7 @@ in
       vlc
       keepassxc
       github-desktop
-      signal-desktop
+      #signal-desktop
       jetbrains.idea-ultimate
       gradle
       kotlin
@@ -44,7 +44,7 @@ in
       pass
       pinentry-curses
       entr
-      inkscape
+      #inkscape
       pinta
       #gnome.gnome-tweaks
       #gnome.gnome-shell-extensions
@@ -54,7 +54,11 @@ in
       #go
       tortoisehg
       libsecret
+      graphviz
+      shotcut
+
       popcorntime
+      transmission_4-qt
 
       google-chrome
       microsoft-edge-beta
@@ -65,6 +69,7 @@ in
       libsForQt5.kcalc
 
       sqlitebrowser
+
     ];
   };
 
