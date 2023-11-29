@@ -56,6 +56,7 @@ in
       libsecret
       graphviz
       shotcut
+      maven
 
       popcorntime
       transmission_4-qt
