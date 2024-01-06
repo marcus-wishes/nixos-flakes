@@ -3,6 +3,7 @@ let
   my-python-packages = ps: with ps; [
     pandas
     pygments
+    #meson-python
   ];
   tex = (pkgs.texlive.combine {
     inherit (pkgs.texlive) scheme-full
@@ -32,7 +33,7 @@ in
       docker-compose
       nodejs
       chezmoi
-      (python3.withPackages my-python-packages)
+      (python310.withPackages my-python-packages)
       slack
       pinentry
       yubico-pam
@@ -55,8 +56,9 @@ in
       tortoisehg
       libsecret
       graphviz
-      shotcut
       maven
+      mercurial
+      #meson #python build system
 
       popcorntime
       transmission_4-qt
@@ -65,12 +67,15 @@ in
       microsoft-edge-beta
       vivaldi
       bun
+      polypane
+      steam-run
 
       #additional kde stuff
       libsForQt5.kcalc
 
       sqlitebrowser
-
+      #python dependency management
+      poetry
     ];
   };
 
