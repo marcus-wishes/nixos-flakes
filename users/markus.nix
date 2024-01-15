@@ -75,7 +75,7 @@ in
 
       sqlitebrowser
       #python dependency management
-      poetry
+      #poetry
     ];
   };
 
