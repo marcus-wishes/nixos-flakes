@@ -64,7 +64,7 @@ in
       transmission_4-qt
 
       google-chrome
-      microsoft-edge-beta
+      microsoft-edge
       vivaldi
       bun
       polypane

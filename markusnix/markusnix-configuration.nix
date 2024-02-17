@@ -38,7 +38,8 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  boot.kernelPackages = pkgs.linuxPackages_zen; # use latest zen kernel
+  #boot.kernelPackages = pkgs.linuxPackages_zen; # use latest zen kernel
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.supportedFilesystems = [ "ntfs" ];
   # unfortunately this doesnt help against the ACPI errors:
   #boot.kernelParams = [
@@ -132,7 +133,7 @@ in
     #open = lib.mkDefault false;
     open = false;
     nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
     nvidiaPersistenced = lib.mkDefault true;
     modesetting.enable = lib.mkDefault true;
     powerManagement.finegrained = false;
