@@ -2,6 +2,7 @@
 {
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  hardware.enableRedistributableFirmware = true;
 
   # Enable networking
   networking.networkmanager.enable = true;

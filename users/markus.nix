@@ -67,11 +67,12 @@ in
       microsoft-edge
       vivaldi
       bun
-      polypane
+      freetube
       steam-run
+      mediawriter
 
       #additional kde stuff
-      libsForQt5.kcalc
+      #libsForQt5.kcalc
 
       sqlitebrowser
       #python dependency management

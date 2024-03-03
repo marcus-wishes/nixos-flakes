@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, kernel, ... }:
 
 let
   nix-alien-pkgs = import (
@@ -112,8 +112,8 @@ in
 
   # Configure keymap in X11
   services.xserver = {
-    layout = "at";
-    xkbVariant = "";
+    xkb.layout = "at";
+    xkb.variant = "";
 
     # Enable touchpad support
     libinput.enable = true;
@@ -133,7 +133,23 @@ in
     #open = lib.mkDefault false;
     open = false;
     nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    
+    #package = config.boot.kernelPackages.nvidiaPackages.stable;
+    
+    # package overwrite because of instability of the 550 driver - https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/nvidia-x11/default.nix
+    # also remove the rcu patch on top when not needed anymore
+    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      version = "545.29.06";
+      sha256_64bit = "sha256-grxVZ2rdQ0FsFG5wxiTI3GrxbMBMcjhoDFajDgBFsXs=";
+      sha256_aarch64 = "sha256-o6ZSjM4gHcotFe+nhFTePPlXm0+RFf64dSIDt+RmeeQ=";
+      openSha256 = "sha256-h4CxaU7EYvBYVbbdjiixBhKf096LyatU6/V6CeY9NKE=";
+      settingsSha256 = "sha256-YBaKpRQWSdXG8Usev8s3GYHCPqL8PpJeF6gpa2droWY=";
+      persistencedSha256 = "sha256-AiYrrOgMagIixu3Ss2rePdoL24CKORFvzgZY3jlNbwM=";
+
+      #patches = [ rcu_patch ];
+
+      brokenOpen = kernel.kernelAtLeast "6.7";
+    };
     nvidiaPersistenced = lib.mkDefault true;
     modesetting.enable = lib.mkDefault true;
     powerManagement.finegrained = false;
