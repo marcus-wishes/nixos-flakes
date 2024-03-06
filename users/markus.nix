@@ -70,6 +70,7 @@ in
       freetube
       steam-run
       mediawriter
+      floorp
 
       #additional kde stuff
       #libsForQt5.kcalc
