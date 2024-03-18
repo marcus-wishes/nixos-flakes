@@ -78,7 +78,23 @@ in
       sqlitebrowser
       #python dependency management
       #poetry
+
+      # fish plugins
+      fishPlugins.grc
+      grc
     ];
+  };
+  
+  programs.direnv.enable = true;
+  programs.fish = {
+    enable = true;
+    /*interactiveShellInit = ''
+      direnv hook fish | source
+    '';
+    plugins = [
+      # Enable a plugin (here grc for colorized command output) from nixpkgs
+      { name = "grc"; src = pkgs.fishPlugins.grc.src; }
+    ];*/
   };
 
   environment.sessionVariables = rec{
@@ -87,6 +103,7 @@ in
       "$HOME/go/go/bin"
       "$HOME/.npm-global/bin"
     ];
+    #NODE_PATH = "/etc/profiles/per-user/markus/bin/node";
     FORGE_EMAIL = "$(cat /run/secrets/forge_email)";
     FORGE_API_TOKEN = "$(cat /run/secrets/forge_api_token)";
   };

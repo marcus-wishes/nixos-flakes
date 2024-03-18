@@ -187,7 +187,6 @@ in
     clinfo
     glxinfo
     libsForQt5.kio-gdrive # google drive integration
-    fish
     unzip
     bat
     tmux
@@ -198,6 +197,7 @@ in
     gnumake
     age
     sops
+    power-profiles-daemon
   ];
 
   virtualisation.docker = {

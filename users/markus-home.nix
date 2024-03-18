@@ -10,6 +10,10 @@
     prefix=~/.npm-global
   '';
 
+  home.file.".bashrc".text = ''
+    eval "$(direnv hook bash)"
+  '';
+
   home.file.".Xresources".text = ''
     !! Colorscheme
 
