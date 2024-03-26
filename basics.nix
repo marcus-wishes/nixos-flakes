@@ -3,6 +3,8 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   hardware.enableRedistributableFirmware = true;
+  nixpkgs.config.nvidia.acceptLicense = true;
+  
 
   # Enable networking
   networking.networkmanager.enable = true;

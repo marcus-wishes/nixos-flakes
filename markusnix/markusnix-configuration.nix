@@ -27,7 +27,6 @@ in
 {
   imports =
     [ # Include the results of the hardware scan.
-      #./hardware-configuration.nix
       ./hardware-configuration.nix
     ];
 
@@ -47,9 +46,9 @@ in
   #];
 
   # Todo remove again if possibe, but i dont know what depends on it
-  nixpkgs.config.permittedInsecurePackages = [
-    "openssl-1.1.1v"
-  ];
+  #nixpkgs.config.permittedInsecurePackages = [
+  #  "openssl-1.1.1v"
+  #];
 
   # enable thermal management
   services.thermald.enable = true;
@@ -128,28 +127,24 @@ in
     driSupport = true;
     driSupport32Bit = true;
   };
-
+  
   hardware.nvidia = {
     #open = lib.mkDefault false;
     open = false;
     nvidiaSettings = true;
-    
-    package = config.boot.kernelPackages.nvidiaPackages.production;
-    
+
+    #package = config.boot.kernelPackages.nvidiaPackages.production;
+
     # package overwrite because of instability of the 550 driver - https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/nvidia-x11/default.nix
-    # also remove the rcu patch on top when not needed anymore
-    #package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-    #  version = "545.29.06";
-    #  sha256_64bit = "sha256-grxVZ2rdQ0FsFG5wxiTI3GrxbMBMcjhoDFajDgBFsXs=";
-    #  sha256_aarch64 = "sha256-o6ZSjM4gHcotFe+nhFTePPlXm0+RFf64dSIDt+RmeeQ=";
-    #  openSha256 = "sha256-h4CxaU7EYvBYVbbdjiixBhKf096LyatU6/V6CeY9NKE=";
-    #  settingsSha256 = "sha256-YBaKpRQWSdXG8Usev8s3GYHCPqL8PpJeF6gpa2droWY=";
-    #  persistencedSha256 = "sha256-AiYrrOgMagIixu3Ss2rePdoL24CKORFvzgZY3jlNbwM=";
+    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      version = "535.154.05";
+      sha256_64bit = "sha256-fpUGXKprgt6SYRDxSCemGXLrEsIA6GOinp+0eGbqqJg=";
+      sha256_aarch64 = "sha256-G0/GiObf/BZMkzzET8HQjdIcvCSqB1uhsinro2HLK9k=";
+      openSha256 = "sha256-wvRdHguGLxS0mR06P5Qi++pDJBCF8pJ8hr4T8O6TJIo=";
+      settingsSha256 = "sha256-9wqoDEWY4I7weWW05F4igj1Gj9wjHsREFMztfEmqm10=";
+      persistencedSha256 = "sha256-d0Q3Lk80JqkS1B54Mahu2yY/WocOqFFbZVBh+ToGhaE=";
+    };
 
-      #patches = [ rcu_patch ];
-
-    #  brokenOpen = kernel.kernelAtLeast "6.7";
-    #};
     nvidiaPersistenced = lib.mkDefault true;
     modesetting.enable = lib.mkDefault true;
     powerManagement.finegrained = false;
@@ -186,14 +181,14 @@ in
     wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
     clinfo
     glxinfo
-    libsForQt5.kio-gdrive # google drive integration
+    #libsForQt5.kio-gdrive # google drive integration
     unzip
     bat
     tmux
     killall
     fd
     rxvt-unicode
-    nix-index
+    #nix-index
     gnumake
     age
     sops
