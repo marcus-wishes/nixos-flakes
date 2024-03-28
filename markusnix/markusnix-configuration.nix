@@ -195,15 +195,28 @@ in
     power-profiles-daemon
   ];
 
-  virtualisation.docker = {
-    enable = true;
-    storageDriver = "btrfs";
-    #rootless = {
+  virtualisation = {
+    podman = {
+      enable = true;
+
+      # Create a `docker` alias for podman, to use it as a drop-in replacement
+      dockerCompat = true;
+
+      # Required for containers under podman-compose to be able to talk to each other.
+      defaultNetwork.settings.dns_enabled = true;
+    };
+
+    #docker = {
     #  enable = true;
-    #setSocketVariable = true;
-    #};
-  };
-  
+    #  storageDriver = "btrfs";
+      #rootless = {
+      #  enable = true;
+      #setSocketVariable = true;
+      #};
+   # };
+  }; 
+
+
   programs.java = {
     enable = true;
     package = pkgs.jdk11;

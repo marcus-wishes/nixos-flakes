@@ -30,9 +30,12 @@ in
       jetbrains.idea-ultimate
       gradle
       kotlin
-      docker-compose
+      #docker-compose
+      podman-compose
+      podman-desktop
+      distrobox
       nodejs
-      chezmoi
+      #chezmoi
       (python310.withPackages my-python-packages)
       slack
       pinentry
@@ -63,11 +66,11 @@ in
       popcorntime
       transmission_4-qt
 
-      google-chrome
+      #google-chrome
       microsoft-edge
       vivaldi
       bun
-      freetube
+      #freetube
       steam-run
       mediawriter
       floorp
@@ -75,7 +78,7 @@ in
       #additional kde stuff
       #libsForQt5.kcalc
 
-      sqlitebrowser
+      #sqlitebrowser
       #python dependency management
       #poetry
 
@@ -106,5 +109,16 @@ in
     #NODE_PATH = "/etc/profiles/per-user/markus/bin/node";
     FORGE_EMAIL = "$(cat /run/secrets/forge_email)";
     FORGE_API_TOKEN = "$(cat /run/secrets/forge_api_token)";
+
+    # wayland stuff:
+    #LIBVA_DRIVER_NAME="nvidia";
+    #XDG_SESSION_TYPE = "wayland";
+    # with nvidia-drm kde doesnt start in wayland   
+    #GBM_BACKEND = "nvidia-drm";
+    GBM_BACKEND = "nvidia";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    # make vscode + elecon apps use wayland. else typing is slow
+    NIXOS_OZONE_WL = "1";
+
   };
 }
