@@ -3,52 +3,12 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, lib, kernel, ... }:
-
-let
-  nix-alien-pkgs = import (
-    builtins.fetchTarball "https://github.com/thiagokokada/nix-alien/tarball/master"
-  ) { };
-  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
-    export __NV_PRIME_RENDER_OFFLOAD=1
-    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-    export __GLX_VENDOR_LIBRARY_NAME=nvidia
-    export __VK_LAYER_NV_optimus=NVIDIA_only
-    exec "$@"
-  '';
-  /*tex = (pkgs.texlive.combine {
-    inherit (pkgs.texlive) scheme-full
-      latexmk;
-  });
-  my-python-packages = ps: with ps; [
-    pandas
-    pygments
-  ];*/
-in
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
-  # enabled Flakes and the new command line tool
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  #boot.kernelPackages = pkgs.linuxPackages_zen; # use latest zen kernel
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.supportedFilesystems = [ "ntfs" ];
-  # unfortunately this doesnt help against the ACPI errors:
-  #boot.kernelParams = [
-  #  ''acpi_osi="!Windows 2022"''
-  #];
-
-  # Todo remove again if possibe, but i dont know what depends on it
-  #nixpkgs.config.permittedInsecurePackages = [
-  #  "openssl-1.1.1v"
-  #];
 
   # enable thermal management
   services.thermald.enable = true;
@@ -62,39 +22,6 @@ in
   networking.extraHosts = "127.0.0.1 jira\n127.0.0.1 confluence";
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
-  networking.networkmanager.enable = true;
-
-  # Set your time zone.
-  time.timeZone = "Europe/Vienna";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-  console.useXkbConfig = true;
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "de_AT.UTF-8";
-    LC_IDENTIFICATION = "de_AT.UTF-8";
-    LC_MEASUREMENT = "de_AT.UTF-8";
-    LC_MONETARY = "de_AT.UTF-8";
-    LC_NAME = "de_AT.UTF-8";
-    LC_NUMERIC = "de_AT.UTF-8";
-    LC_PAPER = "de_AT.UTF-8";
-    LC_TELEPHONE = "de_AT.UTF-8";
-    LC_TIME = "de_AT.UTF-8";
-  };
-  
-  environment.variables = {
-    EDITOR = "vim";
-    #NODE_PATH = "/etc/profiles/per-user/markus/bin/node";
-  };
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
   #yubikey und gpg
   programs.gnupg.agent = {
     enable = true;
@@ -105,28 +32,8 @@ in
   # smarcard service, required for pgp
   services.pcscd.enable = true;
 
-  # gnome keyring to be used for the network manager applet in i3
-  services.gnome.gnome-keyring.enable = true;
-  #services.gnome.seahorse.enable = true;
-
-  # Configure keymap in X11
-  services.xserver = {
-    xkb.layout = "at";
-    xkb.variant = "";
-
-    # Enable touchpad support
-    libinput.enable = true;
-    #libinput.touchpad = {
-	#tapping = true;	
-    #};
-  };
-  
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
+
   
   hardware.nvidia = {
     #open = lib.mkDefault false;
@@ -165,98 +72,6 @@ in
       hardware.nvidia.powerManagement.enable = lib.mkForce false;
     };
   };
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    lshw
-    wget
-    curl
-    gitFull
-    nvidia-offload
-    htop
-    wayland
-    xdg-utils # for opening default programs when clicking something
-    wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
-    clinfo
-    glxinfo
-    #libsForQt5.kio-gdrive # google drive integration
-    unzip
-    bat
-    tmux
-    killall
-    fd
-    rxvt-unicode
-    #nix-index
-    gnumake
-    age
-    sops
-    power-profiles-daemon
-  ];
-
-  virtualisation = {
-    podman = {
-      enable = true;
-
-      # Create a `docker` alias for podman, to use it as a drop-in replacement
-      dockerCompat = true;
-
-      # Required for containers under podman-compose to be able to talk to each other.
-      defaultNetwork.settings.dns_enabled = true;
-    };
-
-    #docker = {
-    #  enable = true;
-    #  storageDriver = "btrfs";
-      #rootless = {
-      #  enable = true;
-      #setSocketVariable = true;
-      #};
-   # };
-  }; 
-
-
-  programs.java = {
-    enable = true;
-    package = pkgs.jdk11;
-    #package = pkgs.jdk8;
-  };
-
-  programs.git = {
-    enable = true;
-  };
-
-  programs.nix-ld = {
-    enable = true;
-  };
-
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-  };  
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  services.gvfs.enable = true; # for mtp for android phones
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

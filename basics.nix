@@ -1,13 +1,52 @@
 { config, pkgs, lib, ... }:
+
+let
+  nix-alien-pkgs = import (
+    builtins.fetchTarball "https://github.com/thiagokokada/nix-alien/tarball/master"
+  ) { };
+  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
+    export __NV_PRIME_RENDER_OFFLOAD=1
+    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export __VK_LAYER_NV_optimus=NVIDIA_only
+    exec "$@"
+  '';
+  /*tex = (pkgs.texlive.combine {
+    inherit (pkgs.texlive) scheme-full
+      latexmk;
+  });
+  my-python-packages = ps: with ps; [
+    pandas
+    pygments
+  ];*/
+in
 {
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   hardware.enableRedistributableFirmware = true;
-  nixpkgs.config.nvidia.acceptLicense = true;
-  
 
+  # enabled Flakes and the new command line tool
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  
   # Enable networking
   networking.networkmanager.enable = true;
+
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.efiSysMountPoint = "/boot/efi";
+  #boot.kernelPackages = pkgs.linuxPackages_zen; # use latest zen kernel
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.supportedFilesystems = [ "ntfs" ];
+  # unfortunately this doesnt help against the ACPI errors:
+  #boot.kernelParams = [
+  #  ''acpi_osi="!Windows 2022"''
+  #];
+
+
+  # Configure network proxy if necessary
+  # networking.proxy.default = "http://user:password@proxy:port/";
+  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Set your time zone.
   time.timeZone = "Europe/Vienna";
@@ -31,6 +70,25 @@
   environment.variables = {
     EDITOR = "vim";
     #NODE_PATH = "/etc/profiles/per-user/markus/bin/node";
+  };
+
+  # Enable the X11 windowing system.
+  services.xserver = {
+    enable = true;
+    xkb.layout = "at";
+    xkb.variant = "";
+
+    # Enable touchpad support
+    libinput.enable = true;
+      #libinput.touchpad = {
+	    #tapping = true;	
+    #};
+  };
+
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
   };
 
   # Enable CUPS to print documents.
@@ -60,4 +118,95 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
+
+  # gnome keyring to be used for the network manager applet in i3
+  services.gnome.gnome-keyring.enable = true;
+  #services.gnome.seahorse.enable = true;
+
+   # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment.systemPackages = with pkgs; [
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    lshw
+    wget
+    curl
+    gitFull
+    nvidia-offload
+    htop
+    wayland
+    xdg-utils # for opening default programs when clicking something
+    wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
+    clinfo
+    glxinfo
+    #libsForQt5.kio-gdrive # google drive integration
+    unzip
+    bat
+    tmux
+    killall
+    fd
+    rxvt-unicode
+    #nix-index
+    gnumake
+    age
+    sops
+    power-profiles-daemon
+  ];
+
+  programs.git = {
+    enable = true;
+  };
+
+  programs.nix-ld = {
+    enable = true;
+  };
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };  
+
+  virtualisation = {
+    podman = {
+      enable = true;
+
+      # Create a `docker` alias for podman, to use it as a drop-in replacement
+      dockerCompat = true;
+
+      # Required for containers under podman-compose to be able to talk to each other.
+      defaultNetwork.settings.dns_enabled = true;
+    };
+
+    #docker = {
+    #  enable = true;
+    #  storageDriver = "btrfs";
+      #rootless = {
+      #  enable = true;
+      #setSocketVariable = true;
+      #};
+   # };
+  }; 
+
+   
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  # programs.mtr.enable = true;
+  # programs.gnupg.agent = {
+  #   enable = true;
+  #   enableSSHSupport = true;
+  # };
+
+  # List services that you want to enable:
+
+  # Enable the OpenSSH daemon.
+  # services.openssh.enable = true;
+
+  # Open ports in the firewall.
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+  # Or disable the firewall altogether.
+  # networking.firewall.enable = false;
+
+  services.gvfs.enable = true; # for mtp for android phones
+
 }
