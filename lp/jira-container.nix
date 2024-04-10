@@ -14,6 +14,7 @@
         #package = pkgs.jdk8;
       };
 
+      networking.firewall.enable = false;
       networking.firewall.allowedTCPPorts = [ 8080 ];
 
       users.groups.jira = {};
@@ -22,6 +23,21 @@
         #home = "/var/lib/jira";
         createHome = true;
         group = "jira";
+      };
+
+      systemd.user.services.jiradirs = {
+        description = "make sure the necessary directories exist";
+        script = ''
+          mkdir -p /home/jira
+          chown -R jira:jira /home/jira
+          mkdir -p /var/tmp/jira
+          chown -R jira:jira /var/tmp/jira
+          mkdir -p /home/jira/logs
+          chown -R jira:jira /home/jira/logs
+          mkdir -p /home/jira/work
+          chown -R jira:jira /home/jira/work
+        '';
+        wantedBy = [ "multi-user.target" ]; # starts after login
       };
 
       environment.sessionVariables = rec{
@@ -33,31 +49,16 @@
         CATALINA_TMPDIR = "/var/tmp/jira";
       };
 
-      # requires postgres
-      services.postgresql = {
-        enable = false;
-        enableTCPIP = true;
-        settings.port = 5432;
-        authentication = pkgs.lib.mkOverride 10 ''
-          #type database  DBuser  auth-method optional_ident_map
-          local sameuser  all     peer        map=superuser_map
-          # ipv4
-          host  all      all     127.0.0.1/32   trust
-          # ipv6
-          host all       all     ::1/128        trust
-        '';
-      };
-      
-      
       services.jira = {
         #https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/web-apps/atlassian/jira.nix
-        enable = false;
+        enable = true;
         listenPort = 8080;
         jrePackage = pkgs.jdk11;
         user = "jira";
         group = "jira";
         #home = "/var/lib/jira";
         home = "/home/jira";
+        #jiraVersion = "8.5.1";
       };
       
 

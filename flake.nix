@@ -82,7 +82,8 @@
 
           #work stuff
           ./lp/work.nix
-          ./lp/jira-container.nix
+          ./lp/postgres-container.nix
+          #./lp/jira-container.nix
 
           # add the sops-nix module to make secrets available in /run/secrets
           sops-nix.nixosModules.sops
