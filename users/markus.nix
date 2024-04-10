@@ -66,7 +66,7 @@ in
       popcorntime
       transmission_4-qt
 
-      #google-chrome
+      google-chrome
       microsoft-edge
       vivaldi
       bun
