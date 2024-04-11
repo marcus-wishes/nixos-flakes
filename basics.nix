@@ -144,6 +144,7 @@ in
     tmux
     killall
     fd
+    fzf
     rxvt-unicode
     #nix-index
     gnumake

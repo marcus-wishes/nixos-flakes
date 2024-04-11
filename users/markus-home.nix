@@ -4,7 +4,33 @@
   home.stateVersion = "22.11";
   home.homeDirectory = "/home/markus";
   home.packages = with pkgs; [
+    github-copilot-cli
+    # fish plugins
+    fishPlugins.grc
+    fishPlugins.fzf-fish
+    fishPlugins.sponge
+    grc
   ];
+
+  programs.fish = {
+    enable = true;
+    /*interactiveShellInit = ''
+      direnv hook fish | source
+    '';*/
+    plugins = [
+      # Enable a plugin (here grc for colorized command output) from nixpkgs
+      { name = "grc"; src = pkgs.fishPlugins.grc.src; }
+      { name = "fzf"; src = pkgs.fishPlugins.fzf-fish.src; }
+      { name = "sponge"; src = pkgs.fishPlugins.sponge.src; }
+    ];
+
+    shellAliases = {
+      # Add a shell alias
+      ll = "ls -lh";
+      copgit = "github-copilot-cli git-assist";
+      cop = "github-copilot-cli what-the-shell";
+    };
+  };
   
   home.file.".npmrc".text = ''
     prefix=~/.npm-global

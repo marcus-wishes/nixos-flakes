@@ -1,4 +1,4 @@
-{ pkgs, config, ...}:
+{ pkgs, config, mkOption, types, literalExpression, ...}:
 let 
   my-python-packages = ps: with ps; [
     pandas
@@ -33,7 +33,7 @@ in
       #docker-compose
       podman-compose
       podman-desktop
-      distrobox
+      #distrobox
       nodejs
       #chezmoi
       (python310.withPackages my-python-packages)
@@ -56,7 +56,7 @@ in
       tex
       tikzit
       #go
-      tortoisehg
+      #tortoisehg
       libsecret
       graphviz
       maven
@@ -76,30 +76,16 @@ in
       floorp
 
       #additional kde stuff
-      #libsForQt5.kcalc
+      kdePackages.kcalc
 
       #sqlitebrowser
       #python dependency management
       #poetry
-
-      # fish plugins
-      fishPlugins.grc
-      grc
     ];
   };
   
   programs.direnv.enable = true;
-  programs.fish = {
-    enable = true;
-    /*interactiveShellInit = ''
-      direnv hook fish | source
-    '';
-    plugins = [
-      # Enable a plugin (here grc for colorized command output) from nixpkgs
-      { name = "grc"; src = pkgs.fishPlugins.grc.src; }
-    ];*/
-  };
-
+  
   environment.sessionVariables = rec{
     GOROOT = "$HOME/go/go";
     PATH = [
