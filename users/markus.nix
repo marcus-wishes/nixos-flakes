@@ -105,6 +105,7 @@ in
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     # make vscode + elecon apps use wayland. else typing is slow
     NIXOS_OZONE_WL = "1";
+    #NVD_BACKEND = "direct";
 
   };
 }
