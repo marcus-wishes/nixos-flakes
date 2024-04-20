@@ -7,16 +7,16 @@
     github-copilot-cli
     # fish plugins
     fishPlugins.grc
-    fishPlugins.fzf-fish
-    fishPlugins.sponge
-    grc
+    fishPlugins.fzf-fish # fuzzy finder
+    fishPlugins.sponge # history without typos
+    starship # shell prompt
+    grc # colorized command output
+    warp-terminal
+    zoxide # a better cd
   ];
 
   programs.fish = {
     enable = true;
-    /*interactiveShellInit = ''
-      direnv hook fish | source
-    '';*/
     plugins = [
       # Enable a plugin (here grc for colorized command output) from nixpkgs
       { name = "grc"; src = pkgs.fishPlugins.grc.src; }
@@ -30,6 +30,12 @@
       copgit = "github-copilot-cli git-assist";
       cop = "github-copilot-cli what-the-shell";
     };
+
+    # Set the prompt to starship
+    interactiveShellInit = ''
+      starship init fish | source
+      zoxide init fish | source
+    '';
   };
   
   home.file.".npmrc".text = ''

@@ -37,7 +37,7 @@
   
   hardware.nvidia = {
     #open = lib.mkDefault false;
-    open = false;
+    open = true;
     nvidiaSettings = true;
 
     package = config.boot.kernelPackages.nvidiaPackages.production;
