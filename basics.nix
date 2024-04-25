@@ -65,11 +65,12 @@ in
     LC_PAPER = "de_AT.UTF-8";
     LC_TELEPHONE = "de_AT.UTF-8";
     LC_TIME = "de_AT.UTF-8";
+    LC_ALL = "de_AT.UTF-8";
+    LANGUAGE = "de_AT:de:en_US:en";
   };
   
   environment.variables = {
     EDITOR = "vim";
-    #NODE_PATH = "/etc/profiles/per-user/markus/bin/node";
   };
 
   # Enable the X11 windowing system.
@@ -138,7 +139,6 @@ in
     wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
     clinfo
     glxinfo
-    #libsForQt5.kio-gdrive # google drive integration
     unzip
     bat
     tmux
@@ -148,8 +148,8 @@ in
     rxvt-unicode
     #nix-index
     gnumake
-    age
-    sops
+    age # age encryption
+    sops # secrets
     power-profiles-daemon
   ];
 

@@ -16,7 +16,7 @@ in
     isNormalUser = true;
     description = "Markus";
     createHome = true;
-    extraGroups = [ "networkmanager" "wheel" "audio" "docker" "keys" config.users.groups.keys.name ];
+    extraGroups = [ "networkmanager" "wheel" "audio" "docker" "keys" "video" "render" config.users.groups.keys.name ];
     packages = with pkgs; [
       neovim
       lm_sensors
