@@ -78,6 +78,12 @@ in
       #additional kde stuff
       kdePackages.kcalc
 
+      zoxide # a better cd
+      warp-terminal
+      github-copilot-cli
+
+      nh # yet another nix cli helper tool
+
       #sqlitebrowser
       #python dependency management
       #poetry

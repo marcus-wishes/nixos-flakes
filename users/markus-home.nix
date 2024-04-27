@@ -4,15 +4,12 @@
   home.stateVersion = "22.11";
   home.homeDirectory = "/home/markus";
   home.packages = with pkgs; [
-    github-copilot-cli
     # fish plugins
     fishPlugins.grc
     fishPlugins.fzf-fish # fuzzy finder
     fishPlugins.sponge # history without typos
     starship # shell prompt
     grc # colorized command output
-    warp-terminal
-    zoxide # a better cd
   ];
 
   programs.fish = {
