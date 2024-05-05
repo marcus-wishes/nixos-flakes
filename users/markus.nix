@@ -16,7 +16,7 @@ in
     isNormalUser = true;
     description = "Markus";
     createHome = true;
-    extraGroups = [ "networkmanager" "wheel" "audio" "docker" "keys" "video" "render" config.users.groups.keys.name ];
+    extraGroups = [ "networkmanager" "wheel" "audio" "docker" "keys" "video" "render" "podman" config.users.groups.keys.name ];
     packages = with pkgs; [
       neovim
       lm_sensors
@@ -48,7 +48,7 @@ in
       pass
       pinentry-curses
       entr
-      #inkscape
+      inkscape
       pinta
       #gnome.gnome-tweaks
       #gnome.gnome-shell-extensions
@@ -87,6 +87,8 @@ in
       #sqlitebrowser
       #python dependency management
       #poetry
+
+      orca # screen reader
     ];
   };
   
@@ -107,10 +109,10 @@ in
     #XDG_SESSION_TYPE = "wayland";
     # with nvidia-drm kde doesnt start in wayland   
     #GBM_BACKEND = "nvidia-drm";
-    GBM_BACKEND = "nvidia";
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    #GBM_BACKEND = "nvidia";
+    #__GLX_VENDOR_LIBRARY_NAME = "nvidia";
     # make vscode + elecon apps use wayland. else typing is slow
-    NIXOS_OZONE_WL = "1";
+    #NIXOS_OZONE_WL = "1";
     #NVD_BACKEND = "direct";
 
   };

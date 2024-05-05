@@ -39,9 +39,11 @@ in
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.supportedFilesystems = [ "ntfs" ];
   # unfortunately this doesnt help against the ACPI errors:
-  #boot.kernelParams = [
-  #  ''acpi_osi="!Windows 2022"''
-  #];
+  boot.kernelParams = [
+    #''acpi_osi=! acpi_osi="Windows 2015"''
+    ''acpi_osi=!" "acpi_osi="Windows 2015"''
+    #''acpi_osi="!Windows 2022"''
+  ];
 
 
   # Configure network proxy if necessary
@@ -78,14 +80,18 @@ in
     enable = true;
     xkb.layout = "at";
     xkb.variant = "";
-
-    # Enable touchpad support
-    libinput.enable = true;
-      #libinput.touchpad = {
-	    #tapping = true;	
-    #};
+    /*libinput = {
+      enable = true;
+      touchpad.disableWhileTyping = true;
+    };*/
   };
 
+  services.libinput = {
+    enable = true;
+    touchpad.disableWhileTyping = true;
+  };
+
+ 
   hardware.opengl = {
     enable = true;
     driSupport = true;
@@ -174,9 +180,15 @@ in
       # Create a `docker` alias for podman, to use it as a drop-in replacement
       dockerCompat = true;
 
+      # enabled docker socket
+      dockerSocket.enable = true;
+
       # Required for containers under podman-compose to be able to talk to each other.
       defaultNetwork.settings.dns_enabled = true;
     };
+
+  
+    
 
     #docker = {
     #  enable = true;
