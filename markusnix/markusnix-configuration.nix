@@ -12,6 +12,11 @@
 
   # enable thermal management
   services.thermald.enable = true;
+  # laptop power management
+  # gnome and kde have power-profile-daemon enabled
+  #services.tlp = {
+  #  enable = true;
+  #};
 
   # Setup keyfile
   boot.initrd.secrets = {
@@ -34,7 +39,6 @@
 
   services.xserver.videoDrivers = [ "nvidia" ];
 
-  
   hardware.nvidia = {
     #open = lib.mkDefault false;
     open = true;

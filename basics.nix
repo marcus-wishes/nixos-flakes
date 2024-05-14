@@ -156,7 +156,7 @@ in
     gnumake
     age # age encryption
     sops # secrets
-    power-profiles-daemon
+    #power-profiles-daemon
   ];
 
   programs.git = {
