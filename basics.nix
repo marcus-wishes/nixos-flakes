@@ -43,6 +43,9 @@ in
     #''acpi_osi=! acpi_osi="Windows 2015"''
     ''acpi_osi=!" "acpi_osi="Windows 2015"''
     #''acpi_osi="!Windows 2022"''
+    "nvidia-drm.modeset=1"
+    "nvidia-drm.fbdev=1"
+    "NVreg_EnableGpuFirmware=0"
   ];
 
 
@@ -74,6 +77,16 @@ in
   environment.variables = {
     EDITOR = "vim";
   };
+
+  /* run nix garbage collection */
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+
+  /* enable nix optimise */
+  nix.settings.auto-optimise-store = true;
 
   # Enable the X11 windowing system.
   services.xserver = {

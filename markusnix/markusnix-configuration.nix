@@ -30,8 +30,12 @@
   #yubikey und gpg
   programs.gnupg.agent = {
     enable = true;
-    enableSSHSupport = true;
+    enableSSHSupport = false;
   };
+  programs.ssh = {
+    startAgent = true;
+  };
+
   services.udev.packages = [ pkgs.yubikey-personalization ];
   
   # smarcard service, required for pgp
@@ -40,11 +44,11 @@
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
-    #open = lib.mkDefault false;
-    open = true;
+    #open =  false;
+    open = lib.mkDefault true;
     nvidiaSettings = true;
 
-    package = config.boot.kernelPackages.nvidiaPackages.production;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
 
     # package overwrite because of instability of the 550 driver - https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/nvidia-x11/default.nix
     #package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
@@ -68,6 +72,7 @@
       nvidiaBusId = "PCI:1:0:0";
     };
   };
+
   # booting with external display:
   # specialisation = {
   #  external-display.configuration = {
@@ -78,12 +83,12 @@
   #};
 
 
-  specialisation = {
-    nouveau.configuration = {
-      system.nixos.tags = [ "nouveau" ];
-      boot.blacklistedKernelModules = [ "nvidia" "nvidia_drm" "nvidia_modeset" ];
-    };
-  };
+  #specialisation = {
+  #  nouveau.configuration = {
+  #    system.nixos.tags = [ "nouveau" ];
+  #    boot.blacklistedKernelModules = [ "nvidia" "nvidia_drm" "nvidia_modeset" ];
+  #  };
+  #};
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
