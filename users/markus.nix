@@ -49,6 +49,7 @@ in
       pinentry-curses
       entr
       inkscape
+      imagemagick
       pinta
       #gnome.gnome-tweaks
       #gnome.gnome-shell-extensions

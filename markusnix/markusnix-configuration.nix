@@ -41,8 +41,10 @@
   # smarcard service, required for pgp
   services.pcscd.enable = true;
 
-  services.xserver.videoDrivers = [ "nvidia" ];
 
+  #boot.blacklistedKernelModules = [ "nvidia" "nvidia_drm" "nvidia_modeset" ];
+  services.xserver.videoDrivers = [ "nvidia" ];
+  
   hardware.nvidia = {
     #open =  false;
     open = lib.mkDefault true;
