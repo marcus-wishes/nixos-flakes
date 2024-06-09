@@ -12,6 +12,10 @@
     grc # colorized command output
   ];
 
+  # add ssh keys to the agent
+  services.ssh-agent.enable = true;
+  programs.ssh.addKeysToAgent = "/home/markus/.ssh/linked-planet-ssh";
+
   programs.fish = {
     enable = true;
     plugins = [
