@@ -10,6 +10,10 @@
 
     # Official NixOS package source, using nixos-unstable branch here
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    # nyx chaotic for CachyOS kernel
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+
     # home-manager, used for managing user configuration
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -31,7 +35,7 @@
   # parameters in `outputs` are defined in `inputs` and can be referenced by their names.
   # However, `self` is an exception, This special parameter points to the `outputs` itself (self-reference)
   # The `@` syntax here is used to alias the attribute set of the inputs's parameter, making it convenient to use inside the function.
-  outputs = { self, nixpkgs, home-manager, sops-nix, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, sops-nix, chaotic, ... }@inputs: {
 
     # `nixosConfigurations` is a special attribute set, which is used to define NixOS configurations.
     nixosConfigurations = {
@@ -117,6 +121,9 @@
 
           # specialized configuration for my laptop
           ./markusnix/markusnix-configuration.nix
+
+          # chaotic default modules
+          chaotic.nixosModules.default
         ];
       };
     };

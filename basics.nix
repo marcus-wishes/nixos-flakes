@@ -36,7 +36,14 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
   #boot.kernelPackages = pkgs.linuxPackages_zen; # use latest zen kernel
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
+  
+  # cachy OS kernel with improved shedulers
+  # https://www.nyx.chaotic.cx/
+  boot.kernelPackages = pkgs.linuxPackages_cachyos;
+  
+  
   boot.supportedFilesystems = [ "ntfs" ];
   # unfortunately this doesnt help against the ACPI errors:
   boot.kernelParams = [
@@ -107,7 +114,6 @@ in
  
   hardware.opengl = {
     enable = true;
-    driSupport = true;
     driSupport32Bit = true;
   };
 

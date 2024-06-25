@@ -1,10 +1,10 @@
 { pkgs, config, mkOption, types, literalExpression, ...}:
 let 
-  my-python-packages = ps: with ps; [
+  /*my-python-packages = ps: with ps; [
     pandas
     pygments
     #meson-python
-  ];
+  ];*/
   tex = (pkgs.texlive.combine {
     inherit (pkgs.texlive) scheme-full
       latexmk;
@@ -36,7 +36,11 @@ in
       #distrobox
       nodejs
       #chezmoi
-      (python310.withPackages my-python-packages)
+      #(python310.withPackages my-python-packages)
+      
+      python311
+      python311Packages.pygments
+
       slack
       pinentry
       yubico-pam
@@ -47,7 +51,7 @@ in
       nodePackages.npm
       pass
       pinentry-curses
-      entr
+     #entr
       inkscape
       imagemagick
       pinta
@@ -55,13 +59,12 @@ in
       #gnome.gnome-shell-extensions
       #gnomeExtensions.timepp
       tex
-      tikzit
+      #tikzit
       #go
       #tortoisehg
       libsecret
-      graphviz
       maven
-      mercurial
+      #mercurial
       #meson #python build system
 
       popcorntime
@@ -69,12 +72,11 @@ in
 
       google-chrome
       microsoft-edge
-      vivaldi
       bun
       #freetube
       steam-run
       mediawriter
-      floorp
+      #floorp
 
       #additional kde stuff
       kdePackages.kcalc
@@ -88,7 +90,7 @@ in
       #python dependency management
       #poetry
 
-      orca # screen reader
+     # orca # screen reader
     ];
   };
   
