@@ -72,6 +72,7 @@ in
 
       google-chrome
       microsoft-edge
+      chromium
       bun
       #freetube
       steam-run
