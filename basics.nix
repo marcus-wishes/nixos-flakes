@@ -125,11 +125,11 @@ in
   services.blueman.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
-  sound.mediaKeys = {
-    enable = true;
-    volumeStep = "5%";
-  };
+  #sound.enable = true;
+  #sound.mediaKeys = {
+  #  enable = true;
+  #  volumeStep = "5%";
+  #};
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
