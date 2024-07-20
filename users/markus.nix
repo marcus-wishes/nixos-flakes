@@ -80,7 +80,8 @@ in
       #floorp
 
       #additional kde stuff
-      kdePackages.kcalc
+      #kdePackages.kcalc
+      qalculate-qt
 
       zoxide # a better cd
       github-copilot-cli
