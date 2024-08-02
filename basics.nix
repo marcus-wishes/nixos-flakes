@@ -112,9 +112,9 @@ in
   };
 
  
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
   };
 
   # Enable CUPS to print documents.
@@ -144,6 +144,8 @@ in
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
+
+  hardware.graphics.extraPackages = with pkgs; [ nvidia-vaapi-driver intel-ocl intel-media-driver intel-compute-runtime libva libdrm libvdpau mesa ];
 
   # gnome keyring to be used for the network manager applet in i3
   services.gnome.gnome-keyring.enable = true;
@@ -175,6 +177,8 @@ in
     gnumake
     age # age encryption
     sops # secrets
+    vdpauinfo
+    libva-utils
     #power-profiles-daemon
   ];
 
@@ -240,5 +244,9 @@ in
   # networking.firewall.enable = false;
 
   services.gvfs.enable = true; # for mtp for android phones
+
+  programs.yazi = {
+    enable = true;
+  };
 
 }

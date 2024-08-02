@@ -23,7 +23,8 @@ in
       firefox
       brave
       vscode
-      vlc
+      mpv
+      smplayer
       keepassxc
       github-desktop
       #signal-desktop
@@ -78,6 +79,7 @@ in
       steam-run
       mediawriter
       #floorp
+      zed-editor
 
       #additional kde stuff
       #kdePackages.kcalc
@@ -87,6 +89,7 @@ in
       github-copilot-cli
 
       nh # yet another nix cli helper tool
+      kitty
 
       #sqlitebrowser
       #python dependency management

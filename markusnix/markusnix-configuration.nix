@@ -47,10 +47,10 @@
   
   hardware.nvidia = {
     #open =  false;
-    open = lib.mkDefault true;
+    open = lib.mkForce true;
     nvidiaSettings = true;
 
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
 
     # package overwrite because of instability of the 550 driver - https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/nvidia-x11/default.nix
     #package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
