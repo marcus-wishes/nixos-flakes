@@ -22,7 +22,7 @@ in
       lm_sensors
       firefox
       brave
-      vscode
+      vscode-fhs
       mpv
       smplayer
       keepassxc
@@ -38,10 +38,17 @@ in
       nodejs
       #chezmoi
       #(python310.withPackages my-python-packages)
-      
-      python311
-      python311Packages.pygments
 
+      (pkgs.python311.withPackages (pk: with pk; [
+        #torch-bin
+        #diffusers
+        #transformers
+        #ccelerate
+        pygments
+      ]))
+
+      cudatoolkit
+      
       slack
       pinentry
       yubico-pam
@@ -98,6 +105,11 @@ in
      # orca # screen reader
     ];
   };
+
+  #services.ollama = {
+    #enable = true;
+    #acceleration = "cuda";
+  #};
   
   programs.direnv.enable = true;
   
@@ -110,6 +122,8 @@ in
     #NODE_PATH = "/etc/profiles/per-user/markus/bin/node";
     FORGE_EMAIL = "$(cat /run/secrets/forge_email)";
     FORGE_API_TOKEN = "$(cat /run/secrets/forge_api_token)";
+
+    CUDA_PATH = "${pkgs.cudatoolkit}";
 
     # wayland stuff:
     #LIBVA_DRIVER_NAME="nvidia";

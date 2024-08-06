@@ -23,6 +23,7 @@ in
 {
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  #nixpkgs.config.cudaSupport = true; # recompiles a lot of stuff
   hardware.enableRedistributableFirmware = true;
 
   # enabled Flakes and the new command line tool
@@ -115,7 +116,12 @@ in
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
+    extraPackages = with pkgs; [ nvidia-vaapi-driver intel-ocl intel-media-driver intel-compute-runtime libva libdrm libvdpau mesa ];
   };
+
+  # nvidia container toolkit
+  hardware.nvidia-container-toolkit.enable = true;
+
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -145,8 +151,6 @@ in
     #media-session.enable = true;
   };
 
-  hardware.graphics.extraPackages = with pkgs; [ nvidia-vaapi-driver intel-ocl intel-media-driver intel-compute-runtime libva libdrm libvdpau mesa ];
-
   # gnome keyring to be used for the network manager applet in i3
   services.gnome.gnome-keyring.enable = true;
   #services.gnome.seahorse.enable = true;
@@ -161,6 +165,8 @@ in
     gitFull
     nvidia-offload
     htop
+    nvtopPackages.full
+    #nvtopPackages.nvidia
     wayland
     xdg-utils # for opening default programs when clicking something
     wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
