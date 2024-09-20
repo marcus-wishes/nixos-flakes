@@ -96,7 +96,9 @@ in
       github-copilot-cli
 
       nh # yet another nix cli helper tool
-      kitty
+      shotcut
+      calibre
+
 
       #sqlitebrowser
       #python dependency management
