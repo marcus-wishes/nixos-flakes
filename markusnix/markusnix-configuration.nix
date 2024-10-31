@@ -110,8 +110,8 @@
       # "Lower Volume" media key
       { keys = [ 114 ]; events = [ "key" "rep" ]; command = "/run/current-system/sw/bin/runuser -l markus -c 'amixer -q set Master 5%- unmute'"; }
       # "Raise Volume" media key
-      #{ keys = [ 115 ]; events = [ "key" "rep" ]; command = "${pkgs.alsaUtils}/bin/amixer -q set Master ${config.sound.mediaKeys.volumeStep}+ unmute"; }
-      { keys = [ 115 ]; events = [ "key" "rep" ]; command = "${pkgs.alsaUtils}/bin/amixer -q set Master 5%+ unmute"; }
+      #{ keys = [ 115 ]; events = [ "key" "rep" ]; command = "${pkgs.alsa-utils}/bin/amixer -q set Master ${config.sound.mediaKeys.volumeStep}+ unmute"; }
+      { keys = [ 115 ]; events = [ "key" "rep" ]; command = "${pkgs.alsa-utils}/bin/amixer -q set Master 5%+ unmute"; }
 
       # backlight up
       { keys = [ 224 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -U 5"; }
