@@ -178,7 +178,6 @@ in
     killall
     fd
     fzf
-    rxvt-unicode
     #nix-index
     gnumake
     age # age encryption
@@ -186,6 +185,8 @@ in
     vdpauinfo
     libva-utils
     #power-profiles-daemon
+
+    ripgrep
   ];
 
   programs.git = {
@@ -254,5 +255,8 @@ in
   programs.yazi = {
     enable = true;
   };
+
+  # userspace snapshotting for docker/podman
+  programs.criu.enable = true;
 
 }

@@ -75,7 +75,7 @@ in
       #mercurial
       #meson #python build system
 
-      popcorntime
+      #popcorntime
       transmission_4-qt
 
       google-chrome
@@ -85,26 +85,21 @@ in
       #freetube
       steam-run
       mediawriter
-      #floorp
-      zed-editor
-
-      #additional kde stuff
-      #kdePackages.kcalc
       qalculate-qt
 
       zoxide # a better cd
       github-copilot-cli
+      #remote-touchpad
 
       nh # yet another nix cli helper tool
       shotcut
-      calibre
-
+      #calibre
 
       #sqlitebrowser
       #python dependency management
       #poetry
 
-     # orca # screen reader
+      #orca # screen reader
     ];
   };
 

@@ -30,6 +30,7 @@
       ll = "ls -lh";
       copgit = "github-copilot-cli git-assist";
       cop = "github-copilot-cli what-the-shell";
+      nvim2 = "nix run ~/nixvim";
     };
 
     # Set the prompt to starship
