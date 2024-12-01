@@ -9,6 +9,10 @@
     fira-code-symbols
     jetbrains-mono
     siji
-    (nerdfonts.override { fonts = [ "Iosevka" "DroidSansMono" "Hack" ]; })
+    nerd-fonts.hack
+    nerd-fonts.iosevka
+    nerd-fonts.droid-sans-mono
+    nerd-fonts.geist-mono
+    nerd-fonts.open-dyslexic
   ];
 }

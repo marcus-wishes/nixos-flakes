@@ -81,13 +81,15 @@
           # Import the i3 configuration
           #./opt/i3.nix
           
-           # create the default user + programs
+          # create the default user + programs
           ./users/markus.nix
 
           #work stuff
           ./lp/work.nix
           #./lp/postgres-container.nix
           #./lp/jira-container.nix
+
+          ./nix-ld.nix
 
           # add the sops-nix module to make secrets available in /run/secrets
           sops-nix.nixosModules.sops

@@ -8,7 +8,7 @@
       at-spi2-core
       atk
       cairo
-      #cups
+      cups
       curl
       dbus
       expat
@@ -17,7 +17,7 @@
       fuse3
       gdk-pixbuf
       glib
-      #gtk3
+      gtk3
       icu
       libGL
       libappindicator-gtk3

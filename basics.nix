@@ -36,13 +36,13 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  #boot.kernelPackages = pkgs.linuxPackages_zen; # use latest zen kernel
-  
+
+  boot.kernelPackages = pkgs.linuxPackages_zen; # use latest zen kernel
   #boot.kernelPackages = pkgs.linuxPackages_latest;
   
   # cachy OS kernel with improved shedulers
   # https://www.nyx.chaotic.cx/
-  boot.kernelPackages = pkgs.linuxPackages_cachyos;
+  #boot.kernelPackages = pkgs.linuxPackages_cachyos;
   
   
   boot.supportedFilesystems = [ "ntfs" ];
@@ -155,7 +155,7 @@ in
   services.gnome.gnome-keyring.enable = true;
   #services.gnome.seahorse.enable = true;
 
-   # List packages installed in system profile. To search, run:
+  # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
@@ -165,7 +165,7 @@ in
     gitFull
     nvidia-offload
     htop
-    nvtopPackages.full
+    #nvtopPackages.full
     #nvtopPackages.nvidia
     wayland
     xdg-utils # for opening default programs when clicking something
@@ -190,10 +190,6 @@ in
   ];
 
   programs.git = {
-    enable = true;
-  };
-
-  programs.nix-ld = {
     enable = true;
   };
 
@@ -251,10 +247,6 @@ in
   # networking.firewall.enable = false;
 
   services.gvfs.enable = true; # for mtp for android phones
-
-  programs.yazi = {
-    enable = true;
-  };
 
   # userspace snapshotting for docker/podman
   programs.criu.enable = true;
